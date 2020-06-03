@@ -6,6 +6,10 @@ function round2(x) {
   return Math.round(x * 100) / 100;
 }
 
+function getNumberOfDays() {
+  return json["outputs"]["hourly"].length / 24;
+}
+
 // read json document uploaded by the user
 document.getElementById("contentFile").onchange = function (evt) {
   let file = evt.target.files[0];
@@ -13,7 +17,7 @@ document.getElementById("contentFile").onchange = function (evt) {
   reader.onload = (event) => {
     json = JSON.parse(event.target.result);
     updateDailyGraphic();
-    generateDaySetter(json["outputs"]["hourly"].length);
+    generateDaySetter();
   };
   reader.readAsText(file);
 };
@@ -48,7 +52,7 @@ function fromDateToIndex() {
       index += parseInt(months[month]);
     }
     if (month === monthSelected) {
-      index += parseInt(daySelected);
+      index += parseInt(daySelected || "0");
       break;
     }
   }
@@ -63,6 +67,7 @@ function monthClick(el) {
   monthSelected = el.text;
   el.classList.add("month-pulsed");
   updateDailyGraphic();
+  generateDaySetter();
 }
 
 function dayClick(el) {
@@ -74,19 +79,19 @@ function dayClick(el) {
   el.classList.add("day-pulsed");
   updateDailyGraphic();
 }
+const monthSelector = document.getElementById("monthSelector");
+monthSelector.innerHTML = "";
+for (month in months) {
+  monthSelector.innerHTML += `<a onclick="monthClick(this)" class="waves-effect valign-wrapper waves-teal btn-flat month-button" ><p>${month}</p></a>`;
+}
 
-function generateDaySetter(nDays) {
-  const monthSelector = document.getElementById("monthSelector");
+function generateDaySetter() {
   const daySelector = document.getElementById("daySelector");
 
-  monthSelector.innerHTML = "";
-  for (month in months) {
-    monthSelector.innerHTML += `<a onclick="monthClick(this)" class="waves-effect valign-wrapper waves-teal btn-flat month-button" ><p>${month}</p></a>`;
-  }
-
   daySelector.innerHTML = "";
-  let daysInMonth = months[monthSelected || "January"];
-  if (nDays === 366 && monthSelector === "February") {
+  console.log(monthSelected);
+  let daysInMonth = months[monthSelected] || 0;
+  if (getNumberOfDays() === 366 && monthSelected === "February") {
     daysInMonth += 1;
   }
   for (let i = 0; i < daysInMonth; i++) {
@@ -107,19 +112,15 @@ function getAttribute(dataObjectsArray, attributeName) {
   return attributeValues;
 }
 
-function getDailyPower(data) {
-  let hourly_data = data["outputs"]["hourly"];
+function getDailyPower() {
+  let hourly_data = json["outputs"]["hourly"];
   let chunks = _.chunk(getAttribute(hourly_data, "P"), 24);
   return chunks;
 }
 
-function updateDailyGraphic(e) {
+function updateDailyGraphic() {
   let newDay = fromDateToIndex();
-  let dayData = getDailyPower(json)[newDay];
-  let data = {
-    labels: Array.from({ length: 24 }, (_, i) => i),
-    series: [dayData.map((i) => i / 1000.0)],
-  };
+  let dayData = getDailyPower()[newDay];
   draw(
     Array.from({ length: 24 }, (_, i) => i),
     dayData.map((i) => i / 1000.0)
