@@ -2,6 +2,10 @@ let json;
 let monthSelected;
 let daySelected;
 
+function round2(x) {
+  return Math.round(x * 100) / 100;
+}
+
 // read json document uploaded by the user
 document.getElementById("contentFile").onchange = function (evt) {
   let file = evt.target.files[0];
@@ -142,11 +146,19 @@ function getIntersections(xdata, ydata, y0) {
 }
 
 function newIntersectionItem(x, y) {
-  return `<li class="collection-item center-align">${x}</li>`;
+  return `<li class="collection-item center-align">${round2(x)}</li>`;
 }
 
 function newDiferenceItem(x) {
-  return `<li class="collection-item blue lighten-3 center-align">${x}</li>`;
+  return `<li class="collection-item blue lighten-3 center-align">${round2(
+    x
+  )}</li>`;
+}
+
+function newTotalItem(x) {
+  return `<li class="collection-item amber darken-2 center-align">${round2(
+    x
+  )}</li>`;
 }
 
 function updateIntersectionPoints(ydata, y0) {
@@ -157,6 +169,7 @@ function updateIntersectionPoints(ydata, y0) {
   const ysamples = xsamples.map((x) => spline.at(x));
   const intersections = getIntersections(xsamples, ysamples, y0);
   intersectionList.innerHTML = "";
+  let totalHours = 0;
   for (let i = 0; i < intersections.length; i += 2) {
     intersectionList.innerHTML += newIntersectionItem(
       intersections[i][0],
@@ -169,7 +182,10 @@ function updateIntersectionPoints(ydata, y0) {
     intersectionList.innerHTML += newDiferenceItem(
       intersections[i + 1][0] - intersections[i][0]
     );
+    totalHours += intersections[i + 1][0] - intersections[i][0];
   }
+
+  intersectionList.innerHTML += newTotalItem(totalHours);
 }
 
 //--------------------------------------------------
