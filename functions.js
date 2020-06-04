@@ -56,7 +56,7 @@ function fromDateToIndex() {
       break;
     }
   }
-  return index;
+  return index - 1;
 }
 
 function monthClick(el) {
