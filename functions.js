@@ -52,11 +52,11 @@ function fromDateToIndex() {
       index += parseInt(months[month]);
     }
     if (month === monthSelected) {
-      index += parseInt(daySelected || "0");
+      index += parseInt(daySelected || "1") - 1;
       break;
     }
   }
-  return index - 1;
+  return index;
 }
 
 function monthClick(el) {
