@@ -1,0 +1,40 @@
+{
+  "name": "agamiz-portfolio",
+  "private": true,
+  "description": "A blog and portfolio site for Antonio Gámiz",
+  "version": "1.0.0",
+  "author": "Antonio Gámiz Delgado <antoniogamiz10@gmail.com>",
+  "dependencies": {
+    "@mdx-js/mdx": "^1.5.7",
+    "@mdx-js/react": "^1.5.7",
+    "@pauliescanlon/gatsby-theme-terminal": "^0.0.30",
+    "@theme-ui/prism": "^0.3.0",
+    "gatsby": "^2.19.22",
+    "gatsby-plugin-canonical-urls": "^2.3.1",
+    "gatsby-plugin-mdx": "^1.0.74",
+    "gatsby-source-filesystem": "^2.1.48",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  },
+  "devDependencies": {
+    "prettier": "^1.19.1"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
+    "start": "npm run develop",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
+    "deploy": "gatsby build --prefix-paths && gh-pages -d public -b master"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antoniogamiz/antoniogamiz.github.io"
+  },
+  "bugs": {
+    "url": "https://github.com/antoniogamiz/antoniogamiz.github.io/issues"
+  }
+}

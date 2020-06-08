@@ -1,0 +1,52 @@
+---
+navigationLabel: About
+---
+
+import { mix } from '@theme-ui/color';
+import Footer from '../components/footer';
+
+# aboutMe
+
+<Grid gap={2} columns={[1, '2fr 1fr']}>
+  <Box>
+    My name is Antonio Gámiz, a Math and CS student from the city of Granada, Spain. I prefer backend to frontend development, but I have always wanted a tiny portfolio to show the things I do! 
+    <Divider/>
+    I am currently pursuing a bachelor in Computer Science and another one in Mathematics. 
+    I am also currently intrigued by backend Development and global lighting using montecarlo methods and ray tracing.
+    <Divider/>
+    I love working with Open Source Tech while also contributing to them. 
+    I am a proud contributor to (<Link href='https://www.raku.org/'>Raku Language</Link>) and sometimes contribute to the DEV Community. 
+  </Box>
+  <Box 
+    sx={{
+        display: 'flex',
+        alignItems: 'center',
+        p: 2
+    }}>
+    <Image src="../images/antonio_512.jpg" alt='Photo depicting myself, Antonio Gámiz'/>
+  </Box>
+</Grid>
+<Divider/>
+<Grid gap={2} columns={[1, '1fr 1fr 1fr']}>  
+    <Box>   
+        <Heading variant='styles.h2'>fetchExperience</Heading>
+        <Heading variant='styles.h3' mb={0}>Google Summer of Code - The Perl Foundation</Heading>
+        <Text>Software Intern</Text>
+        <Link href='https://summerofcode.withgoogle.com/archive/2019/projects/5717156845584384/'>Project Info</Link>
+        <Text variant='styles.small'>May 2019 - August 2019</Text>
+        <Divider />
+        <Divider />
+    </Box>
+    <Box>   
+        <Heading variant='styles.h2'>fetchEducation</Heading>
+        <Heading variant='styles.h5' mb={0}>Bachelor in Mathematics</Heading>
+        <Text>Symbiosis International University</Text>
+        <Text variant='styles.small'>Sep 2016 - Present</Text>
+        <Divider />
+        <Heading variant='styles.h5' mb={0}>Bachelor of Computer Science</Heading>
+        <Text>University of Granada</Text>
+        <Text variant='styles.small'>Sep 2016 - Present</Text>
+        <Divider />
+    </Box>
+</Grid>
+<Footer/>
